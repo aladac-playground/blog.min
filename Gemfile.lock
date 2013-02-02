@@ -1,0 +1,33 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    coderay (1.0.8)
+    haml (3.1.7)
+    kramdown (0.14.2)
+    markdown (1.0.0)
+      kramdown (>= 0.13.7)
+      props (>= 1.0.0)
+      textutils (>= 0.2.0)
+    props (1.0.0)
+    rack (1.5.1)
+    rack-protection (1.3.2)
+      rack
+    sequel (3.43.0)
+    sinatra (1.3.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.3)
+      tilt (~> 1.3, >= 1.3.3)
+    sqlite3 (1.3.7)
+    textutils (0.2.0)
+    tilt (1.3.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  coderay
+  haml
+  markdown
+  sequel
+  sinatra
+  sqlite3

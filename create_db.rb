@@ -19,7 +19,7 @@ end
 
 DB.create_table :posts do
   primary_key :id
-  String :title, :unique => true, :null => false
+  String :title, :null => false
   String :body, :null => false
   foreign_key :user_id, :users
   DateTime :created_at

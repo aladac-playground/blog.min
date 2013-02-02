@@ -29,6 +29,7 @@ class Protected < Sinatra::Base
   get "/" do
     params[:page] ? page = params[:page].to_i : page = 1
     @posts = DB[:posts].reverse_order(:created_at).paginate(page, 8)
+    # If there are no more posts for the current page, redirect to the previous page
     if @posts.current_page_record_count == 0
       redirect "/admin?page=#{params[:page].to_i - 1}"
     end

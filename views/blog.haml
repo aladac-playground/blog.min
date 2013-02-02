@@ -1,1 +1,29 @@
-.dupa dupa
+= @posts.page_count
+- @posts.each do |post|
+  %h1= post[:title]
+  = post[:body]
+  %hr
+
+.pagination
+  %ul
+    - page_number = 1
+    - if @posts.first_page?
+      %li.disabled 
+        %a Prev
+    - else
+      %li
+        %a{:href => "?page=#{@posts.prev_page}"} Prev
+    - @posts.page_count.times do 
+      - if page_number == @posts.current_page
+        %li.active
+          %a= page_number
+      - else
+        %li
+          %a{:href => "?page=#{page_number}"}= page_number
+      - page_number += 1
+    - if @posts.last_page?
+      %li.disabled
+        %a Next
+    - else
+      %li
+        %a{:href => "?page=#{@posts.next_page}"} Next

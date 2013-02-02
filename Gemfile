@@ -6,4 +6,4 @@ gem "haml"
 gem "coderay"
 gem "sqlite3"
 gem "markdown"
-
+gem "will_paginate"

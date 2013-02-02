@@ -1,2 +1,5 @@
 title: "Adams Blog"
 posts_per_page: 4
+admin_user: "admin"
+admin_pass: "admin"
+admin_name: "name"

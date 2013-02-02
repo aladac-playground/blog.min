@@ -9,23 +9,35 @@ Sequel.extension :pagination
 
 DB = Sequel.sqlite("blog.db")
 
-config = YAML.load_file("blog.yml")
+$config = YAML.load_file("blog.yml")
 
-get "/" do
-  params[:page] ? page = params[:page].to_i : page = 1
-  @title = config["title"]
-  @posts = DB[:posts].reverse_order(:created_at).paginate(page, config["posts_per_page"])
-  haml :blog
+class Public < Sinatra::Base
+  get "/" do
+    params[:page] ? page = params[:page].to_i : page = 1
+    @title = $config["title"]
+    @posts = DB[:posts].reverse_order(:created_at).paginate(page, $config["posts_per_page"])
+    haml :blog
+  end
 end
 
-get "/admin" do
-  params[:page] ? page = params[:page].to_i : page = 1
-  @posts = DB[:posts].reverse_order(:created_at).paginate(page, 8)
-  @title = config["title"]
-  haml :posts_list
-end
+class Protected < Sinatra::Base
+  admin_user = $config["admin_user"]
+  admin_pass = $config["admin_pass"]
+  use Rack::Auth::Basic do |username, password|
+      [username, password] == [ admin_user, admin_pass ]
+  end
+  get "/" do
+    params[:page] ? page = params[:page].to_i : page = 1
+    @posts = DB[:posts].reverse_order(:created_at).paginate(page, 8)
+    if @posts.current_page_record_count == 0
+      redirect "/admin?page=#{params[:page].to_i - 1}"
+    end
+    @title = $config["title"]
+    haml :posts_list
+  end
 
-get "/admin/post_delete/:id" do
-  DB[:posts].where(:id => params[:id]).delete
-  redirect request.referrer
+  get "/post_delete/:id" do
+    DB[:posts].where(:id => params[:id]).delete
+    redirect request.referrer
+  end
 end

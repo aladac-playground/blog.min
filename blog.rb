@@ -3,8 +3,9 @@
 require "sinatra"
 require "sequel"
 require "yaml"
-require "RedCloth"
+require "redcarpet"
 require "coderay"
+require "nokogiri"
 
 Sequel.extension :pagination
 
@@ -12,6 +13,8 @@ Sequel.extension :pagination
 DB = Sequel.sqlite("blog.db")
 
 $config = YAML.load_file("blog.yml")
+
+$markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
 
 class Public < Sinatra::Base
   get "/" do

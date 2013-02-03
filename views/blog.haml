@@ -1,7 +1,12 @@
-= @posts.page_count
-- @posts.each do |post|
-  %h1= post[:title]
-  = post[:body]
-  %hr
+- if @posts.count > 0
+  - @posts.each do |post|
+    %h1= post[:title]
+    - post[:body] = RedCloth.new(post[:body]).to_html
+    - if post[:body].match(/\<code class="(.*)"\>(.*)\<\/code\>/)
+      - post[:body].gsub!(/\<code class="(.*)"\>(.*)\<\/code\>/, CodeRay.scan($2, $1.to_sym).div)
+    = post[:body]
+    %hr
 
-= haml :pagination
+  = haml :pagination
+- else
+  No content

@@ -3,6 +3,8 @@
 require "sinatra"
 require "sequel"
 require "yaml"
+require "RedCloth"
+require "coderay"
 
 Sequel.extension :pagination
 
@@ -31,7 +33,7 @@ class Protected < Sinatra::Base
     @posts = DB[:posts].reverse_order(:created_at).paginate(page, 8)
     # If there are no more posts for the current page, redirect to the previous page
     if @posts.current_page_record_count == 0
-      redirect "/admin?page=#{params[:page].to_i - 1}"
+      redirect "/admin?page=#{params[:page].to_i - 1}" unless @posts.current_page == 1
     end
     @title = $config["title"]
     haml :posts_list

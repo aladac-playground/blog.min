@@ -2,12 +2,12 @@
 
 require "sequel"
 
-if File.exists?("blog.db")
+if File.exists?("db/blog.db")
   puts "blog.db already exists"
   exit 1
 end
 
-DB = Sequel.sqlite("blog.db")
+DB = Sequel.sqlite("db/blog.db")
 
 DB.create_table :posts do
   primary_key :id

@@ -3,7 +3,7 @@
 require "sequel"
 require "yaml"
 
-DB = Sequel.sqlite("blog.db")
+DB = Sequel.sqlite("db/blog.db")
 
 dataset = DB[:posts]
 

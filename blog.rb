@@ -32,6 +32,10 @@ class Protected < Sinatra::Base
     Blog::Post.new(params[:title], params[:body])
   end
   
+  get "/edit_post" do
+    haml :edit_post
+  end
+  
   get "/posts_list" do
     params[:page] ? page = params[:page].to_i : page = 1
     @posts = Blog::Post.page(page, $config.posts_per_table)

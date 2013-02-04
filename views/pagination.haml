@@ -6,7 +6,7 @@
         %a Prev
     - else
       %li
-        %a{:href => "?page=#{@posts.prev_page}"} Prev
+        %a{:href => "/?page=#{@posts.prev_page}"} Prev
     - @posts.page_count.times do 
       - if page_number == @posts.current_page
         %li.active

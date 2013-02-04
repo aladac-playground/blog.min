@@ -2,8 +2,8 @@
   - @posts.each do |post|
     %h1= post[:title]
     - body = $markdown.render(post[:body])
-    = hilite(body)
-    - if $config["twitter"]
+    = Blog::Text.highlight(body)
+    - if $config.twitter
       - @url_to_tweet=request.scheme + "://" + request.host + "/post/#{post[:id]}"
       - @text_to_tweet=post[:title]
       = haml :tweet

@@ -1,0 +1,6 @@
+%form#edit_form
+	%h2 Title
+	%input#title.required{ :name => :title, :type => :text}
+	%h2 Body
+	%textarea.required{ :name => :body, :cols => 100, :rows => 15}
+	%input.btn{ :type => :submit}

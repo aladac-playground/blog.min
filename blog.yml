@@ -1,5 +1,6 @@
-title: "Adams Blog"
-posts_per_page: 4
-admin_user: "admin"
-admin_pass: "admin"
-admin_name: "name"
+title: "Adams Blog"           # This will display as the pages <title>
+posts_per_page: 4             # How many posts per page 
+admin_user: "admin"           # Bloggers username
+admin_pass: "admin"           # Bloggers password
+admin_name: "name"            # Name to display 
+twitter: true                 # Enable Sharing by Tweeting

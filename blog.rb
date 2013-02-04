@@ -16,6 +16,16 @@ $config = YAML.load_file("blog.yml")
 
 $markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
 
+def hilite(html)
+  doc = Nokogiri::HTML(html)
+  doc.search("//pre").each do |pre|
+    pre.search("//code").each do |code|
+      pre.replace CodeRay.scan(code.text, code[:class]).div
+    end
+  end
+  return doc.to_s
+end
+
 class Public < Sinatra::Base
   get "/" do
     params[:page] ? page = params[:page].to_i : page = 1

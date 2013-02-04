@@ -23,4 +23,8 @@ config.each_pair do |name, value|
 end
 p config
 
+dataset = DB[:pages]
+dataset.insert(:title => "About Me", :body => "This is a page about me ")
+dataset.insert(:title => "Contact", :body => "You can contact me at")
+
 

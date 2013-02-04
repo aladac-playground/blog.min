@@ -21,3 +21,9 @@ DB.create_table :options do
   String :name, :null => false, :primary_key => true
   String :value, :null => false
 end
+
+DB.create_table :pages do 
+  primary_key :id
+  String :title, :null => false
+  String :body, :null => false
+end

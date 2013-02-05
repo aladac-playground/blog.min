@@ -20,8 +20,8 @@ end
 
 class Protected < Sinatra::Base
   # Use Rack simple auth and the configured username and password to authentificate
-  use Rack::Auth::Basic do |$config.username, $config.password|
-      [username, password] == [ admin_user, admin_pass ]
+  use Rack::Auth::Basic do |username, password|
+      [username, password] == [ $config.admin_user, $config.admin_pass ]
   end
   
   # The general dashboard location

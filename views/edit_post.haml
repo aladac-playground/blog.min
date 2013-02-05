@@ -1,12 +1,8 @@
-%div.span1
-	%b
-		Title
-%input#title.span8
-%p
-%div.span1
-	%b
-		Body
-%textarea#body.span8{ :rows => 15}
-%hr
+%form
+	%fieldset
+		%input#title.span8{ :type => :text, :placeholder => "Enter post title here..."}
+		%p
+		%textarea#body.span8{ :rows => 15, :placeholder => "Write the post body here..."}
+		%hr
 %h1#title_preview
 %div#preview

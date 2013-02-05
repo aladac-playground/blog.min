@@ -31,7 +31,7 @@ class Protected < Sinatra::Base
   end
   
   get "/edit_post" do
-    haml :edit_post
+    haml :edit_post, :format => :html5
   end
   
   get "/posts_list" do

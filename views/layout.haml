@@ -34,11 +34,21 @@
           %a.brand{:href => request.scheme + "://" + request.host + ":" + request.port.to_s }= $config.title
           .nav-collapse.collapse
             %ul.nav
-              %li.active
-                %a{:href => "/"} Home
-              - Blog::Page.all.each do |page|
+              - if request.path_info == "/"
+                %li.active
+                  %a{:href => "/"} Home
+              - else
                 %li
-                  %a{:href => "/page/#{page[:id]}"}= page[:title]
+                  %a{:href => "/"} Home             
+              - Blog::Page.all.each do |page|
+                - href = "/page/#{page[:id]}"
+                - if href == request.path_info
+                  %li.active
+                    %a{:href => href }= page[:title]
+                - else
+                  %li
+                    %a{:href => href }= page[:title]
+                      
     .container
       = yield
     / /container

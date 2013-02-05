@@ -1,8 +1,7 @@
 - if @posts.count > 0
   - @posts.each do |post|
     %h1= post[:title]
-    - body = $markdown.render(post[:body])
-    = Blog::Text.highlight(body)
+    = Blog::Text.render(post[:body])
     - if $config.twitter
       - @url_to_tweet=request.scheme + "://" + request.host + "/post/#{post[:id]}"
       - @text_to_tweet=post[:title]

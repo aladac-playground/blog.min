@@ -3,8 +3,6 @@ require "./lib/blog"
 
 $config = Blog::Config.new
 
-$markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
-
 class Public < Sinatra::Base
   get "/" do
     params[:page] ? page = params[:page].to_i : page = 1
@@ -49,5 +47,14 @@ class Protected < Sinatra::Base
   get "/post_delete/:id" do
     Blog::Post.delete(params[:id])
     redirect request.referrer
+  end
+  
+  get "/preview" do
+    # "$(document).ready(function(){
+    #       $('#preview').html(<%= Blog::Text.render(post[:body]) %>);
+    #     });"
+    res = Blog::Text.render(params[:preview])
+    p res
+    res
   end
 end

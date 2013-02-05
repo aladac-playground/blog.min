@@ -56,7 +56,12 @@ module Blog
         end
       end
       return doc.to_s
-    end  
+    end
+    def self.render(text)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
+      html = markdown.render(text)
+      Blog::Text.highlight(html)  
+    end
   end
   
 end

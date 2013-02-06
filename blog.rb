@@ -48,6 +48,13 @@ class Protected < Sinatra::Base
     end
     haml :post_list
   end
+
+  # Create a post
+  
+  get "/post_new" do
+    Blog::Post.new(params[:title],params[:body])
+    redirect request.referrer
+  end
   
   # Delete a post by id
   get "/post_delete/:id" do

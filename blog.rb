@@ -34,19 +34,19 @@ class Protected < Sinatra::Base
   end
   
   # Post editor with live preview
-  get "/edit_post" do
-    haml :edit_post, :format => :html5
+  get "/post_edit" do
+    haml :post_edit, :format => :html5
   end
   
   # List all posts allowing deletion and edition
-  get "/posts_list" do
+  get "/post_list" do
     params[:page] ? page = params[:page].to_i : page = 1
     @posts = Blog::Post.page(page, $config.posts_per_table)
     # If there are no more posts for the current page, redirect to the previous page
     if @posts.current_page_record_count == 0
-      redirect "/admin/posts_list/#{params[:page].to_i - 1}" unless @posts.current_page == 1
+      redirect "/admin/post_list/#{params[:page].to_i - 1}" unless @posts.current_page == 1
     end
-    haml :posts_list
+    haml :post_list
   end
   
   # Delete a post by id

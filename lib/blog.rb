@@ -53,17 +53,19 @@ module Blog
   class Text
     def self.highlight(html)
       doc = Nokogiri::HTML(html)
+      p html
       doc.search("//pre").each do |pre|
-        pre.search("//code").each do |code|
+        pre.search("//code[@class]").each do |code|
           pre.replace CodeRay.scan(code.text, code[:class]).div
         end
       end
       return doc.to_s
     end
     def self.render(text)
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  
       html = markdown.render(text)
-      Blog::Text.highlight(html)  
+      result = Blog::Text.highlight(html)
+      return result  
     end
   end
   

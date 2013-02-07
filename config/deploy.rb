@@ -1,6 +1,8 @@
 set :application, "minblog"
 set :repository,  "git@sazabi.pl:chi/minblog.git"
 
+set :rvm_type, :system
+
 set :user, "deploy"
 set :use_sudo, false
 

@@ -30,18 +30,14 @@ class Protected < Sinatra::Base
   get "/" do
     haml :admin
   end
-  
-  get "/save_post" do
-    Blog::Post.new(params[:title], params[:body])
-  end
-  
+
   # Post editor with live preview
   get "/post_edit" do
     if params[:id]
-      @edit_form_action = :post_update
+      @edit_form_action = "/admin/post_update"
       @post = Blog::Post.select(params[:id])
     else
-      @edit_form_aciton = :post_new
+      @edit_form_action = "/admin/post_new"
     end
     haml :post_edit, :format => :html5
   end
@@ -49,6 +45,7 @@ class Protected < Sinatra::Base
   # Update a post
   get "/post_update" do
     Blog::Post.update(params[:id], params[:title], params[:body])
+    redirect "/admin/post_list"
   end
   
   # List all posts allowing deletion and edition
@@ -66,7 +63,7 @@ class Protected < Sinatra::Base
   
   get "/post_new" do
     Blog::Post.new(params[:title],params[:body])
-    redirect request.referrer
+    redirect "/admin/post_list"
   end
   
   # Delete a post by id

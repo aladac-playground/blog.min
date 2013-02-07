@@ -29,3 +29,7 @@ role :db,  "sazabi.pl"
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
 # end
+
+require 'rvm/capistrano'
+require 'bundler/capistrano'
+require 'unicorn/capistrano'

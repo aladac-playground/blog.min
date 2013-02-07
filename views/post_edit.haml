@@ -1,0 +1,14 @@
+- if @post
+  - body = @post[:body]
+  - title = @post[:title]
+%form{ :action => @edit_form_action }
+  %fieldset
+    %input#title.span8{ :value => title ? title : nil, :name => :title, :type => :text, :required => :true, :placeholder => "Enter post title here..."}
+    %p
+    %textarea#body.span8{ :name => :body, :rows => 15, :required => :true, :placeholder => "Write the post body here..."}= body ? body : nil
+    %input{ :hidden => true, :name => :id, :value => params[:id] }
+    %p
+    %input#publish_post.btn{:type => :submit, :value => "Publish Post"}
+    %hr
+%h1#title_preview
+%div#preview

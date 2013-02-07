@@ -21,6 +21,7 @@ role :db,  "sazabi.pl"
 # after "deploy:restart", "deploy:cleanup"
 
 before "deploy:restart", "prepare:db"
+before "deploy:restart", "prepare:db_load"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -30,7 +31,7 @@ namespace :prepare do
     run "cd #{deploy_to}/current/; bundle exec ruby create_db.rb"
   end
   task :db_load do
-    run "#{deploy_to}/current/fixtures.rb"
+    run "cd #{deploy_to}/current/; bundle exec ruby fixtures.rb"
   end
 end
 

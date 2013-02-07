@@ -27,7 +27,7 @@ end
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-set :shared_assets, "db/blog.db"
+set :shared_assets, [ "db/blog.db" ]
 
 namespace :prepare do
   # task :db do

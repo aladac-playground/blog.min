@@ -32,4 +32,3 @@ role :db,  "sazabi.pl"
 
 require 'rvm/capistrano'
 require 'bundler/capistrano'
-require 'unicorn/capistrano'

@@ -1,6 +1,6 @@
-app_name "minblog"
-deploy_path "/apps/#{app_name}"
-app_dir "#{deploy_path}/current"
+app_name = "minblog"
+deploy_path = "/apps/#{app_name}"
+app_dir = "#{deploy_path}/current"
 worker_processes 2
 working_directory app_dir
 

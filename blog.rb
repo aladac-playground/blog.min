@@ -13,7 +13,9 @@ class Public < Sinatra::Base
   
   # A particular sub-page view
   get "/page/:page_id" do
-    @page = Blog::Page.select(params[:page_id])
+    page = Blog::Page.select(params[:page_id])
+    @title = page[:title]
+    @body = page[:body]
     haml :page
   end
 end
@@ -35,7 +37,18 @@ class Protected < Sinatra::Base
   
   # Post editor with live preview
   get "/post_edit" do
+    if params[:id]
+      @edit_form_action = :post_update
+      @post = Blog::Post.select(params[:id])
+    else
+      @edit_form_aciton = :post_new
+    end
     haml :post_edit, :format => :html5
+  end
+  
+  # Update a post
+  get "/post_update" do
+    Blog::Post.update(params[:id], params[:title], params[:body])
   end
   
   # List all posts allowing deletion and edition

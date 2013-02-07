@@ -1,2 +1,3 @@
-%h1= @page[:title]
-= Blog::Text.render(@page[:body])
+%pre= params
+%h1= @title
+/ = Blog::Text.render(@page[:body])

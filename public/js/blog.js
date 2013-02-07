@@ -1,21 +1,26 @@
-$(document).ready(function(){
-	$('#body').keyup(function () {
-		var preview_text = $('#body').val();
-		$.ajax(
-			{
-				url: "preview",
-				dataType: "HTML",
-				data: { preview: preview_text },
-				processDAta: true
-			}
-		).done(function ( data ) {
-			$("#preview").html(data);
-		});
+function get_body_preview (preview_text) {
+	$.ajax(
+		{
+			url: "preview",
+			dataType: "HTML",
+			data: { preview: preview_text },
+			processDAta: true
+		}
+	).done(function ( data ) {
+		$("#preview").html(data);
 	});
-
+};
+		
+$(document).ready(function(){
+	get_body_preview($('#body').val());
+	$("#title_preview").html($('#title').val());
+	
+	$('#body').keyup(function() {
+		get_body_preview($('#body').val())
+	});
+	
 	$('#title').keyup(function () {
-		var preview_text = $('#title').val();
-		$("#title_preview").html(preview_text);
+		$("#title_preview").html($('#title').val());
 	});
 });
 

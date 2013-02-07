@@ -45,6 +45,13 @@ module Blog
     def self.page(current_page, posts_per_page)
       Blog::Post.all.paginate(current_page.to_i, posts_per_page.to_i)
     end
+    def self.select(post_id)
+      post = DB[:posts].where(:id => post_id)
+      post.empty? ? nil : post.first
+    end
+    def self.update(post_id, title, body)
+      DB[:posts].where(:id => post_id).update(:body => body, :title => title)
+    end
   end
   
 # ======================================================================

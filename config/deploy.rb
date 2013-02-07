@@ -27,7 +27,7 @@ before "deploy:restart", "prepare:db"
 
 namespace :prepare do
   task :db do
-    run "#{deploy_to}/current/create_db.rb"
+    run "cd #{deploy_to}/current/; bundle exec ruby create_db.rb"
   end
   task :db_load do
     run "#{deploy_to}/current/fixtures.rb"

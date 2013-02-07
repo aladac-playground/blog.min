@@ -20,14 +20,15 @@ role :db,  "sazabi.pl"
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
 
+set :shared_assets, [ "db" ]
+
 before "deploy:restart" do 
   prepare.link_shared
 end
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+after "deploy:setup" do
+  prepare.setup_shared
 
-set :shared_assets, [ "db/blog.db" ]
 
 namespace :prepare do
   # task :db do
@@ -36,6 +37,12 @@ namespace :prepare do
   # task :db_load do
   #   run "cd #{deploy_to}/current/; bundle exec ruby fixtures.rb"
   # end
+  desc "Setup additional shared paths"
+  task :setup_shared do 
+    shared_assets.each do |link|
+      run "mkdir -p #{shared_path}/#{link}"
+    end
+  end
   desc "Linking shared stuff to release dir"
   task :link_shared do
     shared_assets.each do |link| 

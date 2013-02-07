@@ -28,6 +28,7 @@ end
 
 after "deploy:setup" do
   prepare.setup_shared
+end
 
 
 namespace :prepare do
@@ -43,6 +44,7 @@ namespace :prepare do
       run "mkdir -p #{shared_path}/#{link}"
     end
   end
+
   desc "Linking shared stuff to release dir"
   task :link_shared do
     shared_assets.each do |link| 

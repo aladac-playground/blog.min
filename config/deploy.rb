@@ -2,6 +2,7 @@ set :application, "minblog"
 set :repository,  "git@sazabi.pl:chi/minblog.git"
 
 set :user, "deploy"
+set :use_sudo, false
 
 set :deploy_to, "/apps/#{application}"
 

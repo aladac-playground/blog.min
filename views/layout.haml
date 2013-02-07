@@ -22,7 +22,8 @@
     %link{:href => "../bootstrap/ico/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "../bootstrap/ico/favicon.png", :rel => "shortcut icon"}
     %script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" }
-    %script{ :src => "../js/blog.js" }
+    - if request.path == "/admin/post_edit"
+      %script{ :src => "../js/blog.js" }
   %body
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
@@ -33,22 +34,39 @@
             %span.icon-bar
           %a.brand{:href => request.scheme + "://" + request.host + ":" + request.port.to_s }= $config.title
           .nav-collapse.collapse
-            %ul.nav
-              - if request.path_info == "/"
-                %li.active
-                  %a{:href => "/"} Home
-              - else
-                %li
-                  %a{:href => "/"} Home             
-              - Blog::Page.all.each do |page|
-                - href = "/page/#{page[:id]}"
-                - if href == request.path_info
+            -if request.path =~ /admin/
+              %ul.nav
+                - if request.path == "/admin"
                   %li.active
-                    %a{:href => href }= page[:title]
+                    %a{:href => "/admin"} Admin
                 - else
                   %li
-                    %a{:href => href }= page[:title]
-                      
+                    %a{:href => "/admin"} Admin
+                - [ { :title => "New Post", :path => "post_edit" }, { :title => "List Posts", :path => "post_list" } ].each do |page|
+                  - href = "/admin/#{page[:path]}"
+                  - if href == request.path
+                    %li.active
+                      %a{:href => href }= page[:title]
+                  - else
+                    %li
+                      %a{:href => href }= page[:title]
+            - else
+              %ul.nav
+                - if request.path_info == "/"
+                  %li.active
+                    %a{:href => "/"} Home
+                - else
+                  %li
+                    %a{:href => "/"} Home             
+                - Blog::Page.all.each do |page|
+                  - href = "/page/#{page[:id]}"
+                  - if href == request.path_info
+                    %li.active
+                      %a{:href => href }= page[:title]
+                  - else
+                    %li
+                      %a{:href => href }= page[:title]
+          %a.btn.pull-right{:href => :admin} Admin
     .container
       = yield
     / /container

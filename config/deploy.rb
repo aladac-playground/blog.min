@@ -38,7 +38,9 @@ namespace :prepare do
   # end
   desc "Linking shared stuff to release dir"
   task :link_shared do
-    shared_assets.each do { |link| run "ln -nfs #{shared_path}/#{link} #{release_path}/#{link}" }
+    shared_assets.each do |link| 
+      run "ln -nfs #{shared_path}/#{link} #{release_path}/#{link}" 
+    end
   end
 end
 

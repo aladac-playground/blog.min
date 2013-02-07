@@ -60,7 +60,6 @@ module Blog
   class Text
     def self.highlight(html)
       doc = Nokogiri::HTML(html)
-      p html
       doc.search("//pre").each do |pre|
         pre.search("//code[@class]").each do |code|
           pre.replace CodeRay.scan(code.text, code[:class]).div

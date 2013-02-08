@@ -8,6 +8,7 @@ set :use_sudo, false
 
 set :deploy_to, "/apps/#{application}"
 
+# sample
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

@@ -34,6 +34,7 @@ module Blog
 # ================
   class Post
     def self.new(title,body)
+      body = Blog::Text.sanitize(body)  
       DB[:posts].insert(:title => title, :body => body, :created_at => Time.now)    
     end
     def self.all
@@ -59,13 +60,18 @@ module Blog
 # ======================================================================
   class Text
     def self.highlight(html)
-      doc = Nokogiri::HTML(html)
-      doc.search("//pre").each do |pre|
-        pre.search("//code[@class]").each do |code|
+      doc = Nokogiri::HTML::DocumentFragment.parse(html)
+      doc.search("pre").each do |pre|
+        pre.search("code[@class]").each do |code|
           pre.replace CodeRay.scan(code.text, code[:class]).div
         end
       end
       return doc.to_s
+    end
+    def self.sanitize(html)
+      doc = Nokogiri::HTML::DocumentFragment.parse(html)
+      doc.search("script").remove
+      doc.to_html
     end
     def self.render(text)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  

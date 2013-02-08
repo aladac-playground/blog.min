@@ -81,6 +81,7 @@ class Protected < Sinatra::Base
   
   # Generate a Markdown preview with syntax highlighting provided by CodeRay
   get "/preview" do
-    Blog::Text.render(params[:preview])
+    preview = Blog::Text.sanitize(params[:preview])
+    Blog::Text.render(preview)
   end
 end

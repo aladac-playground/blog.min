@@ -11,6 +11,13 @@ class Public < Sinatra::Base
     haml :blog
   end
   
+  # Display a specific post
+  get "/post/:post_id" do
+    @post = Blog::Post.select(params[:post_id])
+    redirect "/" if ! @post
+    haml :post
+  end
+  
   # A particular sub-page view
   get "/page/:page_id" do
     page = Blog::Page.select(params[:page_id])

@@ -12,7 +12,8 @@
         %td= post[:title]
         %td= post[:created_at]
         %td
-          %a.btn{ :href => "/admin/post_edit?id=#{post[:id]}"}Edit
+          %a.btn{ :href => "/post/#{post[:id]}"} Display
+          %a.btn{ :href => "/admin/post_edit?id=#{post[:id]}"} Edit
           %a.btn.btn-danger.confirm{:href => "/admin/post_delete/#{post[:id]}"} Delete
   = haml :pagination
 - else

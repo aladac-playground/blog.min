@@ -1,5 +1,5 @@
-%h1 Posts list
 - if @posts.count > 0
+  %h1 Posts list
   %table.table
     %tr
       %th Number
@@ -17,4 +17,8 @@
           %a.btn.btn-danger.confirm{:href => "/admin/post_delete/#{post[:id]}"} Delete
   = haml :pagination
 - else
-  No more posts
+  %div.alert 
+    %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+    There are no posts
+    
+  %a.btn{ :href => "/admin/post_edit"} Add a post

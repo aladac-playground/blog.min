@@ -2,6 +2,9 @@
   - @posts.each do |post|
     %h1= post[:title]
     = Blog::Text.render(post[:body])
+    %div.pull-right
+      Posted on
+      =post[:created_at]
     - if $config.twitter
       - @url_to_tweet=request.scheme + "://" + request.host + "/post/#{post[:id]}"
       - @text_to_tweet=post[:title]

@@ -34,7 +34,7 @@ module Blog
 # ================
   class Post
     def self.new(title,body)
-      DB[:posts].insert(:title => title, :body => body)    
+      DB[:posts].insert(:title => title, :body => body, :created_at => Time.now)    
     end
     def self.all
       DB[:posts].reverse_order(:created_at)    

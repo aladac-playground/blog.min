@@ -6,6 +6,7 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
+    %link{:href => "../css/emojify.css", :rel => "stylesheet"}
     %link{:href => "../bootstrap/css/bootstrap.css", :rel => "stylesheet"}
       :css
         body {
@@ -24,8 +25,10 @@
     %script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" }
     %script{ :src => "../bootstrap/js/bootstrap.min.js" }
     %script{ :src => "../js/tweet.js" }
+    %script{ :src => "../js/emojify.js" }
     - if request.path == "/admin/post_edit"
       %script{ :src => "../js/blog.js" }
+    %script{ :src => "../js/boot.js"}
   %body
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner

@@ -4,6 +4,7 @@ require "yaml"
 require "redcarpet"
 require "coderay"
 require "nokogiri"
+require "sanitize"
 
 Sequel.extension :pagination
 
@@ -69,9 +70,9 @@ module Blog
       return doc.to_s
     end
     def self.sanitize(html)
-      doc = Nokogiri::HTML::DocumentFragment.parse(html)
-      doc.search("script").remove
-      doc.to_html
+      Sanitize.clean(html, :elements => %w[ a code pre li ul ol h1 h2 h3 p div iframe ],
+                     :attributes => { 'all' => %w[ id class name value ] },
+                     :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}})
     end
     def self.render(text)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  

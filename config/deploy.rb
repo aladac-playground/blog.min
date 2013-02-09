@@ -27,6 +27,8 @@ before "deploy:restart" do
   prepare.link_shared
 end
 
+after 'deploy:restart', 'unicorn:restart'
+
 after "deploy:setup" do
   prepare.setup_shared
 end

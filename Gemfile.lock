@@ -26,6 +26,8 @@ GEM
       rack
     raindrops (0.10.0)
     redcarpet (2.2.2)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sequel (3.43.0)
@@ -50,6 +52,7 @@ DEPENDENCIES
   haml
   nokogiri
   redcarpet
+  rvm-capistrano
   sanitize
   sequel
   sinatra

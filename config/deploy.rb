@@ -27,7 +27,6 @@ before "deploy:restart" do
   prepare.link_shared
 end
 
-after 'deploy:restart', 'unicorn:restart'
 
 after "deploy:setup" do
   prepare.setup_shared
@@ -56,15 +55,7 @@ namespace :prepare do
   end
 end
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
-
 require 'rvm/capistrano'
 require 'bundler/capistrano'
 require 'capistrano-unicorn'
+

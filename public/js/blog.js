@@ -1,4 +1,4 @@
-function get_body_preview (preview_text) {
+function get_preview (preview_text, target_selector) {
 	$.ajax(
 		{
 			url: "preview",
@@ -7,20 +7,20 @@ function get_body_preview (preview_text) {
 			processDAta: true
 		}
 	).done(function ( data ) {
-		$("#preview").html(data);
+		$(target_selector).html(data);
 	});
 };
 		
 $(document).ready(function(){
-	get_body_preview($('#body').val());
-	$("#title_preview").html($('#title').val());
+	get_preview($('#body').val(), '#preview');
+	get_preview($('#title').val(), '#title_preview');
 	
 	$('#body').keyup(function() {
-		get_body_preview($('#body').val())
+	  get_preview($('#body').val(), '#preview');
 	});
 	
 	$('#title').keyup(function () {
-		$("#title_preview").html($('#title').val());
+	  get_preview($('#title').val(), '#title_preview');
 	});
 });
 

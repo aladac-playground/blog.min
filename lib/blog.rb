@@ -81,6 +81,7 @@ module Blog
           anchor['target'] = '_blank'
         end
       end
+      return doc.to_s
     end
     def self.render(text)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  

@@ -74,10 +74,19 @@ module Blog
                      :attributes => { 'all' => %w[ id class name value ] },
                      :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}})
     end
+    def self.links(html)
+      doc = Nokogiri::HTML::DocumentFragment.parse(html)
+      doc.search("a").each do |anchor|
+        if anchor['href'] =~ /^http/
+          anchor['target'] = '_blank'
+        end
+      end
+    end
     def self.render(text)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  
       html = markdown.render(text)
       result = Blog::Text.highlight(html)
+      result = Blog::Text.links(result)
       return result  
     end
   end

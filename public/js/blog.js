@@ -1,3 +1,3 @@
-$(document).ready(function(){
-	$('a').attr('target','_new');
-});
+// $(document).ready(function(){
+// 	$('a').attr('target','_new');
+// });

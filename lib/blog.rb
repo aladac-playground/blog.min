@@ -84,12 +84,28 @@ module Blog
       return doc.to_s
     end
     def self.render(text)
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)  
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
+      text = Blog::Text.emojify(text)  
       html = markdown.render(text)
       result = Blog::Text.highlight(html)
       result = Blog::Text.links(result)
       return result  
     end
+    def self.emojify(text)
+      text.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+        if Blog::Emoji.names.include?($1)
+          "<img alt='" + $1 + "' height='20' src='/images/emoji/#{$1}.png' style='vertical-align:middle' width='20' />"
+        else
+          match
+        end
+      end
+    end
   end
-  
+  class Emoji
+    def self.names
+      Dir.new('public/images/emoji').grep(/png$/).each do |emoji|
+        emoji.gsub!(/.png$/,"")
+      end
+    end
+  end
 end

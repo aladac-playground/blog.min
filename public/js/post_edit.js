@@ -12,6 +12,14 @@ function get_preview (preview_text, target_selector) {
 };
 		
 $(document).ready(function(){
+	$('#button-emoji').click(function() {
+		$('#emoji-sheat').toggle();
+	});
+	$('#button-markdown').click(function() {
+		$('#markdown-sheat').toggle();
+	});
+
+	
 	get_preview($('#body').val(), '#preview');
 	get_preview($('#title').val(), '#title_preview');
 	

@@ -1,16 +1,30 @@
-%h1 New Post
-- if @post
-  - body = @post[:body]
-  - title = @post[:title]
-%form{ :action => @edit_form_action }
-  %fieldset
-    %input#title.span8{ :value => title ? title : nil, :name => :title, :type => :text, :required => :true, :placeholder => "Enter post title here..."}
+%div.row
+  %div.span8
+    %h1 New Post
+    - if @post
+      - body = @post[:body]
+      - title = @post[:title]
+    %form{ :action => @edit_form_action }
+      %fieldset
+        %input#title.span8{ :value => title ? title : nil, :name => :title, :type => :text, :required => :true, :placeholder => "Enter post title here..."}
+        %p
+        %textarea#body.span8{ :name => :body, :rows => 15, :required => :true, :placeholder => "Write the post body here..."}= body ? body : nil
+        -if @post
+          %input{ :hidden => true, :name => :id, :value => params[:id] }
+        %p
+        %input#publish_post.btn{:type => :submit, :value => "Publish Post"}
+        %hr
+    %h1#title_preview
+    %div#preview
+  %div.span4
+    %h3 Cheatsheats
+    %button.btn#button-emoji Emoji
+    %button.btn#button-markdown Markdown
     %p
-    %textarea#body.span8{ :name => :body, :rows => 15, :required => :true, :placeholder => "Write the post body here..."}= body ? body : nil
-    -if @post
-      %input{ :hidden => true, :name => :id, :value => params[:id] }
-    %p
-    %input#publish_post.btn{:type => :submit, :value => "Publish Post"}
-    %hr
-%h1#title_preview
-%div#preview
+    %div.alert.alert-info#emoji-sheat{:style => 'display: none;'}
+      %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+      =haml :emoji
+    %div.alert.alert-info#markdown-sheat{:style => 'display: none;'}
+      %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+      =haml :markdown
+      

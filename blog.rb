@@ -1,9 +1,17 @@
 #!/usr/bin/env ruby
 require "./lib/blog"
 
+
 $config = Blog::Config.new
+require "better_errors"
+require "binding_of_caller"
+
 
 class Public < Sinatra::Base
+  configure :development do
+    use BetterErrors::Middleware
+  end
+
   # The "Home" page, listing the posts
   get "/" do
     params[:page] ? page = params[:page].to_i : page = 1
@@ -19,8 +27,9 @@ class Public < Sinatra::Base
   end
   
   # A particular sub-page view
-  get "/page/:page_id" do
-    page = Blog::Page.select(params[:page_id])
+  get "/page/:page" do
+    page = Blog::Page.select(params[:page]) or page = Blog::Page.title(params[:page])
+    redirect "/" if page.nil?
     @title = page[:title]
     @body = page[:body]
     haml :page

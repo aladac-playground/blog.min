@@ -28,6 +28,9 @@ module Blog
     def self.select(arg)
       DB[:pages].where(:id => arg).first
     end
+    def self.title(arg)
+      DB[:pages].where(:title => arg).first
+    end
   end
 
 # ================

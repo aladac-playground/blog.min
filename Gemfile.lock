@@ -1,6 +1,11 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -10,6 +15,8 @@ GEM
     capistrano-unicorn (0.1.6)
       capistrano
     coderay (1.0.8)
+    debug_inspector (0.0.2)
+    erubis (2.7.0)
     haml (3.1.7)
     highline (1.6.15)
     kgio (2.8.0)
@@ -46,6 +53,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   capistrano
   capistrano-unicorn
   coderay

@@ -24,8 +24,8 @@
     %script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" }
     %script{ :src => "../bootstrap/js/bootstrap.min.js" }
     %script{ :src => "../js/tweet.js" }
-    - if request.path == "/admin/post_edit"
-      %script{ :src => "../js/post_edit.js" }
+    - if request.path =~ /edit/
+      %script{ :src => "../js/edit.js" }
     %script{ :src => "../js/blog.js"}
   %body
     .navbar.navbar-inverse.navbar-fixed-top
@@ -38,56 +38,8 @@
           %a.brand{:href => request.scheme + "://" + request.host + ":" + request.port.to_s }= $config.title
           .nav-collapse.collapse
             -if request.path =~ /admin/
-              %ul.nav
-                - if request.path == "/admin"
-                  %li.active
-                    %a{:href => "/admin"} Admin
-                - else
-                  %li
-                    %a{:href => "/admin"} Admin
-                - [ { :title => "New Post", :path => "post_edit" }, { :title => "List Posts", :path => "post_list" }, { :title => "New Page", :path => "page_edit" }, { :title => "List Pages", :path => "page_list" } ].each do |page|
-                  - href = "/admin/#{page[:path]}"
-                  - if href == request.path
-                    %li.active
-                      %a{:href => href }= page[:title]
-                  - else
-                    %li
-                      %a{:href => href }= page[:title]
+              = haml :nav_admin, :layout => false
             - else
-              %ul.nav
-                - if request.path_info == "/"
-                  %li.active
-                    %a{:href => "/"} Home
-                - else
-                  %li
-                    %a{:href => "/"} Home             
-                - Blog::Page.all.each do |page|
-                  - href = "/page/#{page[:id]}"
-                  - if href == request.path_info
-                    %li.active
-                      %a{:href => href }= page[:title]
-                  - else
-                    %li
-                      %a{:href => href }= page[:title]
-              %a.btn.pull-right{:href => "/admin" } Admin
+              = haml :nav_public, :layout => false
     .container
       = yield
-    / /container
-    /
-      Le javascript
-      \==================================================
-    / Placed at the end of the document so the pages load faster
-    / %script{:src => "../bootstrap/js/jquery.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-transition.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-alert.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-modal.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-dropdown.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-scrollspy.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-tab.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-tooltip.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-popover.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-button.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-collapse.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-carousel.js"}
-    /  %script{:src => "../bootstrap/js/bootstrap-typeahead.js"}
- 

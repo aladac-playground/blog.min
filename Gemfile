@@ -1,4 +1,4 @@
-source :rubygems
+source "https://rubygems.org"
 
 gem "sinatra"
 gem "gemoji"
@@ -10,6 +10,5 @@ gem "nokogiri"
 gem "coderay"
 gem "unicorn"
 gem "sanitize"
-gem "twitter-bootstrap-ruby"
 gem "better_errors", :group => :development
 gem "binding_of_caller", :group => :development

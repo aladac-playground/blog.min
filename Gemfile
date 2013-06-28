@@ -1,6 +1,7 @@
 source :rubygems
 
 gem "sinatra"
+gem "gemoji"
 gem "sequel"
 gem "haml"
 gem "sqlite3"

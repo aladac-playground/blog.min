@@ -11,6 +11,7 @@ require "binding_of_caller"
 class Public < Sinatra::Base
   configure :development do
     use BetterErrors::Middleware
+    BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
   end
   # The "Home" page, listing the posts
   get "/" do
@@ -37,6 +38,7 @@ end
 class Protected < Sinatra::Base
   configure :development do
     use BetterErrors::Middleware
+    BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
   end
   # Use Rack simple auth and the configured username and password to authentificate
   use Rack::Auth::Basic do |username, password|

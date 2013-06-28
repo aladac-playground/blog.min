@@ -5,13 +5,13 @@ require "./lib/blog"
 $config = Blog::Config.new
 require "better_errors"
 require "binding_of_caller"
-configure :development do
-  use BetterErrors::Middleware
-end
+
 
 
 class Public < Sinatra::Base
-
+  configure :development do
+    use BetterErrors::Middleware
+  end
   # The "Home" page, listing the posts
   get "/" do
     params[:page] ? page = params[:page].to_i : page = 1
@@ -35,6 +35,9 @@ class Public < Sinatra::Base
 end
 
 class Protected < Sinatra::Base
+  configure :development do
+    use BetterErrors::Middleware
+  end
   # Use Rack simple auth and the configured username and password to authentificate
   use Rack::Auth::Basic do |username, password|
       [username, password] == [ $config.admin_user, $config.admin_pass ]

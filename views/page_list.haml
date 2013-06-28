@@ -1,0 +1,24 @@
+- if @pages.count > 0
+  %h1 Posts list
+  %table.table
+    %tr
+      %th Number
+      %th Title
+      %th TimeStamp
+      %th Options
+    - @pages.each do |page|
+      %tr
+        %td= page[:id]
+        %td= page[:title]
+        %td= page[:created_at]
+        %td
+          %a.btn{ :href => "/page/#{page[:id]}"} Display
+          %a.btn{ :href => "/admin/page_edit?id=#{page[:id]}"} Edit
+          %a.btn.btn-danger.confirm{:href => "/admin/page_delete/#{page[:id]}"} Delete
+  = haml :pages_pagination
+- else
+  %div.alert 
+    %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+    There are no pages
+    
+  %a.btn{ :href => "/admin/page_edit"} Add a page

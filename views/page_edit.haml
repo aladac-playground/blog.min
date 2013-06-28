@@ -1,0 +1,30 @@
+%div.row
+  %div.span8
+    %h1 New Page
+    - if @page
+      - body = @page[:body]
+      - title = @page[:title]
+    %form{ :action => @edit_form_action }
+      %fieldset
+        %input#title.span8{ :value => title ? title : nil, :name => :title, :type => :text, :required => :true, :placeholder => "Enter page title here..."}
+        %p
+        %textarea#body.span8{ :name => :body, :rows => 15, :required => :true, :placeholder => "Write the page body here..."}= body ? body : nil
+        -if @page
+          %input{ :hidden => true, :name => :id, :value => params[:id] }
+        %p
+        %input#publish_page.btn{:type => :submit, :value => "Publish Page"}
+        %hr
+    %h1#title_preview
+    %div#preview
+  %div.span4
+    %h3 Cheatsheats
+    %button.btn#button-emoji Emoji
+    %button.btn#button-markdown Markdown
+    %p
+    %div.alert.alert-info#emoji-sheat{:style => 'display: none;'}
+      %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+      =haml :emoji
+    %div.alert.alert-info#markdown-sheat{:style => 'display: none;'}
+      %button.close{ :'data-dismiss' => :alert, :type => :button } &times;
+      =haml :markdown
+      

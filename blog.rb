@@ -5,12 +5,12 @@ require "./lib/blog"
 $config = Blog::Config.new
 require "better_errors"
 require "binding_of_caller"
+configure :development do
+  use BetterErrors::Middleware
+end
 
 
 class Public < Sinatra::Base
-  configure :development do
-    use BetterErrors::Middleware
-  end
 
   # The "Home" page, listing the posts
   get "/" do
@@ -28,10 +28,8 @@ class Public < Sinatra::Base
   
   # A particular sub-page view
   get "/page/:page" do
-    page = Blog::Page.select(params[:page]) or page = Blog::Page.title(params[:page])
-    redirect "/" if page.nil?
-    @title = page[:title]
-    @body = page[:body]
+    @page = Blog::Page.select(params[:page]) or @page = Blog::Page.title(params[:page])
+    redirect "/" if @page.nil?
     haml :page
   end
 end
@@ -87,6 +85,49 @@ class Protected < Sinatra::Base
     Blog::Post.delete(params[:id])
     redirect request.referrer
   end
+
+  # Page editor with live preview
+  get "/page_edit" do
+    if params[:id]
+      @edit_form_action = "/admin/page_update"
+      @page = Blog::Page.select(params[:id])
+    else
+      @edit_form_action = "/admin/page_new"
+    end
+    haml :page_edit, :format => :html5
+  end
+  
+  # Update a page
+  get "/page_update" do
+    Blog::Page.update(params[:id], params[:title], params[:body])
+    redirect "/admin/page_list"
+  end
+  
+  # List all pages allowing deletion and edition
+  get "/page_list" do
+    params[:page] ? page = params[:page].to_i : page = 1
+    @pages = Blog::Page.page(page, $config.pages_per_table)
+    # If there are no more pages for the current page, redirect to the previous page
+    if @pages.current_page_record_count == 0
+      redirect "/admin/page_list/#{params[:page].to_i - 1}" unless @pages.current_page == 1
+    end
+    haml :page_list
+  end
+
+  # Create a page
+  
+  get "/page_new" do
+    Blog::Page.new(params[:title],params[:body])
+    redirect "/admin/page_list"
+  end
+  
+  # Delete a page by id
+  get "/page_delete/:id" do
+    Blog::Page.delete(params[:id])
+    redirect request.referrer
+  end
+
+
   
   # Generate a Markdown preview with syntax highlighting provided by CodeRay
   get "/preview" do

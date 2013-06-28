@@ -1,6 +1,7 @@
 title: "blog.min"           # This will display as the pages <title>
 posts_per_page: 4             # How many posts per page 
 posts_per_table: 8            # How many posts listed per table page in the posts lists
+pages_per_table: 8            # How many pages listed per table page in the pages lists
 admin_user: "admin"           # Bloggers username
 admin_pass: "admin"           # Bloggers password
 admin_name: "name"            # Name to display 

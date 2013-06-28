@@ -22,6 +22,10 @@ module Blog
 # = Page methods =
 # ================
   class Page
+    def self.new(title,body)
+      body = Blog::Text.sanitize(body)  
+      DB[:pages].insert(:title => title, :body => body, :created_at => Time.now)    
+    end
     def self.all
       DB[:pages]
     end
@@ -30,6 +34,15 @@ module Blog
     end
     def self.title(arg)
       DB[:pages].where(:title => arg).first
+    end
+    def self.delete(arg)
+      DB[:pages].where(:id => arg).delete
+    end
+    def self.update(post_id, title, body)
+      DB[:pages].where(:id => post_id).update(:body => body, :title => title)
+    end
+    def self.page(current_page, pages_per_page)
+      Blog::Page.all.paginate(current_page.to_i, pages_per_page.to_i)
     end
   end
 

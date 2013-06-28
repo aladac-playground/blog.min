@@ -45,7 +45,7 @@
                 - else
                   %li
                     %a{:href => "/admin"} Admin
-                - [ { :title => "New Post", :path => "post_edit" }, { :title => "List Posts", :path => "post_list" } ].each do |page|
+                - [ { :title => "New Post", :path => "post_edit" }, { :title => "List Posts", :path => "post_list" }, { :title => "New Page", :path => "page_edit" }, { :title => "List Pages", :path => "page_list" } ].each do |page|
                   - href = "/admin/#{page[:path]}"
                   - if href == request.path
                     %li.active

@@ -26,4 +26,6 @@ DB.create_table :pages do
   primary_key :id
   String :title, :null => false
   String :body, :null => false
+  DateTime :created_at
+  index :created_at
 end

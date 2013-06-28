@@ -1,5 +1,6 @@
 require "sinatra"
 require "sequel"
+require "sqlite3"
 require "yaml"
 require "redcarpet"
 require "coderay"
@@ -7,6 +8,40 @@ require "nokogiri"
 require "sanitize"
 
 Sequel.extension :pagination
+
+if ! File.exists?("db/blog.db")
+  # If the db file doesn't exist create it create tables
+  DB = Sequel.sqlite("db/blog.db")
+
+  DB.create_table :posts do
+    primary_key :id
+    String :title, :null => false
+    String :body, :null => false
+    DateTime :created_at
+    index :created_at
+  end
+
+  DB.create_table :options do
+    String :name, :null => false, :primary_key => true
+    String :value, :null => false
+  end
+
+  DB.create_table :pages do
+    primary_key :id
+    String :title, :null => false
+    String :body, :null => false
+    DateTime :created_at
+    index :created_at
+  end
+
+  # ... load the default config into DB
+  dataset = DB[:options]
+
+  config = YAML.load_file("blog.yml")
+  config.each_pair do |name, value|
+      dataset.insert(:name => name, :value => value)
+  end
+end
 
 module Blog
   DB = Sequel.sqlite("db/blog.db")

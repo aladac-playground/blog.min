@@ -52,7 +52,26 @@ module Blog
       row.first[:value] unless row.empty?
     end
   end
-
+  
+# ============
+# = Fixtures =
+# ============
+  class Fixtures
+    def self.import(posts=10)
+      dataset = DB[:posts]
+      posts.times do |i|
+        dataset.insert(:title => "Title #{i}", :body => "Lorem ipsum dolor sit amet, \n\n```ruby\nrequire 'time'\nputs 'Hello World!'\n```\nconsectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+          ex ea commodo consequat. \n\n```ruby \nrequire 'time'\nputs 'Hello World!'\n```\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
+          :created_at => Time.now)
+      end
+      dataset = DB[:pages]
+      dataset.insert(:title => "About Me", :body => "This is a page about me ")
+      dataset.insert(:title => "Contact", :body => "You can contact me at")
+    end
+  end
+  
 # ================
 # = Page methods =
 # ================

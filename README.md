@@ -3,7 +3,7 @@
 **blog.min** is a minimalistic blog created for one purpose only. To quickly post short articles with syntax highlighted code.
 It's devoid of any features like mutli-user support, social integration (other than share on Twitter), tags. 
 
-If you want an actual blog and ruby is your thing consider using [Enki|https://github.com/xaviershay/enki]
+If you want an actual blog and ruby is your thing consider using [Enki](https://github.com/xaviershay/enki)
 
 ## Idea
 All started with me being semi-satisfied with what other blogging platforms had to offer.
